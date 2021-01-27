@@ -1,0 +1,71 @@
+<!doctypee html>
+<html>
+    <head>
+        <link rel="stylesheet" href="drag&drop.css">
+        
+    </head>
+    <body>
+        <div class="row">
+            <div class="col-6">
+                <div class="box1" id="kh" ondrop="drop(event)" ondragover="allowdrop(event)">
+                </div>
+                <h2>Kakashi Hatake</h2>
+            </div>
+            <div class="col-6">
+                <div class="box1" id="js" ondrop="drop(event)" ondragover="allowdrop(event)">
+                </div>
+                <h2>Jiraiya Sensei</h2>
+                
+            </div>
+            <h1 style="margin-left:45% ">Find who is whom</h1>
+        </div>
+        <br> <br>
+        <hr>
+        <div class="box1" id="js" ondrop="drop(event)" ondragover="allowdrop(event)" style="width: 600px; margin-lef: 25%">
+                
+        <img src="jiraiyasensei.jpg" alt="jraiya sensei" draggable="true" ondragstart="drag(event)" id="jsimg" class="jsc">
+        <img src="kakashisensei.jpg" style="margin-left: 25px;" draggable="true" ondragstart="drag(event)" id="khimg" class="khc">
+            </div>
+        <div style="margin-left: 45%" class="res"><h1></h1></div>
+        <script render>
+        const allowdrop = (ev) => {
+            ev.preventDefault();
+            console.log("allowing");
+        }
+        const drag = (ev) => {
+            ev.dataTransfer.setData("img",ev.target.id);
+            
+            console.log("drag",ev.target.id,'damn!');
+        }
+        const drop = (ev) => {
+            ev.preventDefault();
+            var id = ev.dataTransfer.getData("img");
+            ev.target.appendChild(document.getElementById(id));
+            console.log("drop",id);
+//        
+        }
+        var idk = document.querySelector(".res").childNodes[0];
+            console.log(idk);
+            idk.innerText=`okay!!`;
+            var i=8;
+            
+           var timeOut = setInterval(()=>{
+                i =i-1;
+                if(i>=0) idk.innerText=i;
+               else idk.textContent='please play or leave!!';
+                console.log(idk.innerText , idk.className);
+               if(i==-5) clearInterval(timeOut),location.reload();
+            },1000)
+        
+        var interval = setTimeout(()=>{
+            var childlistjs = document.getElementById('js').children;
+            var childlistkh = document.getElementById('kh').children;
+            if(childlistjs[0].className == 'jsc' && childlistkh[0].className == 'khc') console.log('win'),idk.textContent='win!';
+            else console.log('lose'),idk.textContent='lose!';
+            clearInterval(timeOut);
+        },8000);
+            
+            
+        </script>
+    </body>
+</html>
